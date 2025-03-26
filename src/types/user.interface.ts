@@ -9,8 +9,9 @@ export interface UserDocuments {
   email: string;
   password: string;
   role: UserRole;
-  comparePassword(userPassword:string):Promise<boolean>
-  getJWT():Promise<string>
+  department?:string;
+  comparePassword(userPassword:string):Promise<boolean>;
+  getJWT(id:string,role:UserRole):Promise<any>
   createdAt?: string;
   updatedAt?: string;
 

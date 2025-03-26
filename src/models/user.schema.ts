@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
 import mongoose, { Model } from "mongoose";
 import { UserDocuments, UserRole } from "../types/user.interface";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import credentialsConfig from "../config/credentials.config";
 const userSchema = new mongoose.Schema(
   {
     name: { 
@@ -20,6 +21,10 @@ const userSchema = new mongoose.Schema(
     password: { 
       type: String, 
       required: true,
+     
+    },
+    department: { 
+      type: String, 
      
     },
     role: {
@@ -41,14 +46,16 @@ userSchema.methods.comparePassword=async function (password:string) {
 }
 
 
-// userSchema.method.getJWT=async function () {
-//   const accessToken: string = jwt.sign({,email,username}, this.jwt_key, {
-//     expiresIn: "1d",
-//   });
+userSchema.methods.getJWT=async function (id:string,role:UserRole):Promise<string> {
+  const accessToken:string =await jwt.sign({userId:id,role}, credentialsConfig.JWT.JWT_SECRET, {
+    expiresIn:'1h' ,
+  });
 
-//   return accessToken;
+
+  return accessToken
+
   
-// }
+}
 
 
 export const UserModal:Model<UserDocuments> = mongoose.model<UserDocuments>("User", userSchema)

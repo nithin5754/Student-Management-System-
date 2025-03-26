@@ -10,6 +10,9 @@ interface ICredentialsConfig {
   ADMIN:{
     EMAIL:string,
     PASSWORD:string
+  },
+  JWT :{
+    JWT_SECRET:string,
   }
 }
 
@@ -21,6 +24,9 @@ const credentialsConfig: ICredentialsConfig = {
   ADMIN:{
    EMAIL: process.env.ADMIN_EMAIL || 'admin@admin.com',
 PASSWORD: process.env.ADMIN_PASSWORD || 'admin'
+  },
+  JWT :{
+    JWT_SECRET: process.env.JWT_SECRET as string || '',
   }
 };
 
