@@ -4,7 +4,7 @@ import connectionDB from "./config/database.config";
 import ErrorHandlingMiddleWare from "./middlewares/error.middleware";
 
 import adminRoutes from './routes/admin.route'
-import loginRoutes from './routes/user.route'
+import studentRoutes from './routes/student.route'
 
 const app = express();
 app.use(express.json());
@@ -26,7 +26,7 @@ const startServer =async ()=>{
 
   
 app.use('/api/v1/admin',adminRoutes)
-app.use('/api/v1/student',loginRoutes)
+app.use('/api/v1/student',studentRoutes)
 app.use(ErrorHandlingMiddleWare);
 
 startServer()

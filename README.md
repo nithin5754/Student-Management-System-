@@ -3,6 +3,58 @@
 ## Overview
 This is a  Student Management System API built with Express.js, TypeScript, and MongoDB Atlas. 
 
+## PROJECT STRUCTURE
+
+student-management-system/
+│
+├── src/
+│   ├── config/
+│   │   ├── database.config.ts
+│   │   └── credentials.config.ts
+│   │
+│   ├── controllers/
+│   │   ├── admin.controller.ts
+│   │   ├── authentication.controller.ts
+        ├── student.controller.ts
+        └── task.controller.ts
+│   │
+│   ├── middleware/
+│   │   ├── auth.middleware.ts
+        ├── error.middleware.ts
+        ├── isAdmin.middleware.ts
+        ├── isStudent.middleware.ts
+│   │   └── error.middleware.ts
+│   │
+│   ├── models/
+│   │   ├── student.model.ts
+│   │   └──  user.model.ts
+│   │   
+│   │
+│   ├── routes/
+│   │   ├── admin.routes.ts
+│   │   └── student.route.ts
+│   │
+│   ├── types/
+        ├── error.interface.ts
+        ├── task.interface.ts
+        └── user.interface.ts
+│   │  
+│   │
+│   ├── utils/
+│   │   ├── passwordUtils.ts
+│   │   └── validationUtils.ts
+│   │
+│   ├── app.ts
+│   └── main.ts
+│
+├── .env
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── README.md
+
+
+
 ## Features
 - Admin Panel
   - Admin login
@@ -17,7 +69,7 @@ This is a  Student Management System API built with Express.js, TypeScript, and 
 ## Prerequisites
 - Node.js 
 - MongoDB Atlas account
-- Postman (for API testing)
+- Postman for testing
 
 ## Installation
 

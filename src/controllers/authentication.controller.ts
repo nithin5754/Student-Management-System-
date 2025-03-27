@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import { UserModal } from "../models/user.schema";
 import { UserRole } from "../types/user.interface";
 import { BadRequestError } from "../types/error.interface";
+import { emailRegex } from "../utils/constants";
 
 export async function AdminLogin(
   req: Request,
@@ -52,8 +53,16 @@ export async function StudentLogin(
 ) {
   try {
     const { email, password } = req.body;
+ 
+ 
+  if(!email||!password){
+    throw new BadRequestError("Credentials Missing ", "StudentLogin() method error");
+  }
+    if(email&&!emailRegex.test(email)){
+      throw new BadRequestError("invalid email", "StudentLogin() method error");
+    }
 
-    let student = await UserModal.findOne({
+    const student = await UserModal.findOne({
       email,
       role: UserRole.STUDENT,
     });
