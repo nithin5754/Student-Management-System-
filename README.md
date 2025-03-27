@@ -23,8 +23,8 @@ This is a  Student Management System API built with Express.js, TypeScript, and 
 
 1. Clone the repository
 ```bash
-git clone https://your-repo-url.git
-cd student-management-system
+git clone https://github.com/nithin5754/Student-Management-System-.git
+cd Student-Management-System-
 ```
 
 2. Install dependencies
@@ -35,9 +35,9 @@ npm install
 3. Create `.env` file with the following variables:
 ```
 PORT=3000   
-MONGO_URI=mongodb+srv://nithinjoji0756:NV6A3uckLFfeKiPV@cluster0.jnbwvb9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+MONGO_URI= mongodb string 
 
-JWT_SECRET=hfghgeruytguewrbtwuyt435789324nhtuwyuirwejrdewioroweqjt
+JWT_SECRET= jwt  key
 ADMIN_EMAIL= admin@admin.com
 ADMIN_PASSWORD= admin
 ```
