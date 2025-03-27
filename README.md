@@ -83,9 +83,11 @@ npm start
 - Admin Password: admin123
 
 ## Postman Documentation
-[Postman API Documentation URL]
 
+```
+https://documenter.getpostman.com/view/29889355/2sAYkLnww9
 
+```
 
 
 ## Deployment
