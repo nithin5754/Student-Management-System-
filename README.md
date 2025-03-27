@@ -89,7 +89,12 @@ npm start
 https://documenter.getpostman.com/view/29889355/2sAYkLnww9
 
 ```
+## Live Link
 
+```
+https://student-management-system-4l0z.onrender.com
+
+```
 
 ## Deployment
 - Render
