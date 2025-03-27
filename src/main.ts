@@ -23,9 +23,10 @@ const startServer =async ()=>{
   }
 }
 
-app.use(ErrorHandlingMiddleWare);
+
   
 app.use('/api/v1/admin',adminRoutes)
-app.use('/api/v1/user',loginRoutes)
+app.use('/api/v1/student',loginRoutes)
+app.use(ErrorHandlingMiddleWare);
 
 startServer()

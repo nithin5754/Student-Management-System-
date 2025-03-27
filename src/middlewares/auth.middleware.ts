@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { NotAuthorizedError } from "../types/error.interface";
 
 import jwt from "jsonwebtoken";
 import credentialsConfig from "../config/credentials.config";
 import { UserRole } from "../types/user.interface";
 import { UserModal } from "../models/user.schema";
+import { NotAuthorizedError } from "../types/error.interface";
 
 interface TokenPayload {
   userId: string;
@@ -25,21 +25,17 @@ export async function authenticateMiddleware(
   next: NextFunction
 ) {
   try {
+
+
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      throw new NotAuthorizedError(
-        "Authorization token missing",
-        "authenticateMiddleware() method error"
-      );
+      throw new NotAuthorizedError('Invalid request', 'jWT AUTH() method: Request not coming from api gateway');
     }
 
     const token = authHeader.split(" ")[1];
     if (!token) {
-      throw new NotAuthorizedError(
-        "Invalid token format",
-        "authenticateMiddleware() method error"
-      );
+      throw new NotAuthorizedError('Token is not available. Please login again.', 'jWT AUTH() method invalid session error');
     }
 
     const decoded = jwt.verify(
@@ -48,19 +44,13 @@ export async function authenticateMiddleware(
     ) as TokenPayload;
 
     if (!decoded) {
-      throw new NotAuthorizedError(
-        "Unauthorized",
-        "authenticateMiddleware() method error"
-      );
+      throw new NotAuthorizedError('authorized', 'jWT AUTH() method: Request not coming from api gateway');
     }
 
     const user = await UserModal.findById(decoded.userId);
 
     if (!user) {
-      throw new NotAuthorizedError(
-        "User not found",
-        "authenticateMiddleware() method error"
-      );
+      throw new NotAuthorizedError('Token is not available. Please login again.', 'jWT AUTH() method invalid session error');
     }
 
     req.user = {
@@ -70,9 +60,15 @@ export async function authenticateMiddleware(
 
     next();
   } catch (error) {
-    next(error);
+
+    res.status(401).json({error:"unauthorized  credentials, please login"})
+
   }
 }
+
+
+
+
 export async function studentOnly(
   req: Request,
   _res: Response,
@@ -91,20 +87,13 @@ export async function studentOnly(
   }
 }
 
-export async function adminOnly(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  try {
-    if (!req.user || req.user.role !== UserRole.STUDENT) {
-      throw new NotAuthorizedError(
-        "admin access required",
-        "adminOnly() method error"
-      );
-    }
-    next();
-  } catch (error) {
-    next(error);
-  }
-}
+
+
+
+
+
+
+
+
+
+

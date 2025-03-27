@@ -26,7 +26,7 @@ const credentialsConfig: ICredentialsConfig = {
 PASSWORD: process.env.ADMIN_PASSWORD || 'admin'
   },
   JWT :{
-    JWT_SECRET: process.env.JWT_SECRET as string || '',
+    JWT_SECRET: process.env.JWT_SECRET as string ,
   }
 };
 

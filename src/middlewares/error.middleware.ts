@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { CustomError, IErrorResponse } from "../types/error.interface";
+import { NextFunction, Request, Response } from "express"
+import { IErrorResponse, CustomError } from "../types/error.interface";
 
 
 
@@ -13,7 +13,7 @@ const ErrorHandlingMiddleWare = (
 ):void=> {
 
   if (error instanceof CustomError) {
-    console.log('error template', ` ${error.comingFrom}:`, error);
+    console.log('error template :', ` ${error.comingFrom}:`, error);
     res.status(error.statusCode).json(error.serializeErrors());
   }
   next()

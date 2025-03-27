@@ -3,7 +3,7 @@ import credentialsConfig from "../config/credentials.config";
 import { StatusCodes } from "http-status-codes";
 import { UserModal } from "../models/user.schema";
 import { UserRole } from "../types/user.interface";
-import { BadRequestError, NotFoundError } from "../types/error.interface";
+import { BadRequestError } from "../types/error.interface";
 
 export async function AdminLogin(
   req: Request,
@@ -59,7 +59,7 @@ export async function StudentLogin(
     });
 
     if (!student) {
-      throw new NotFoundError("Not found", "StudentLogin() method error");
+      throw new BadRequestError("Not found", "StudentLogin() method error");
     }
 
     const isPasswordMatch = await student?.comparePassword(password);

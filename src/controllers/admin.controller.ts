@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { UserModal } from "../models/user.schema";
 import { BadRequestError } from "../types/error.interface";
 import { UserRole } from "../types/user.interface";
+import { TaskModal } from "../models/task.schema";
 
 export async function AddStudent(
   req: Request,
@@ -30,24 +31,38 @@ export async function AddStudent(
     await student.save();
 
     res.status(201).json({
-      message: "Student added successfully",
-      student,
+      message: "new student added successfully"
     });
   } catch (error) {
     next(error);
   }
 }
-export async function hello(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  try {
-   
 
-    res.status(200).json({
-      message: "Student added successfully",
-      user:req.user,
+export async function AddTask(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { studentId, title, description, dueDate } = req.body;
+
+    const student = await UserModal.findById(studentId);
+    if (!student) {
+      throw new BadRequestError(
+        "'Something went wrong'",
+        "AddStudent () method Error"
+      );
+    }
+
+    const newTask = new TaskModal({
+      studentId,
+      title,
+      description,
+      dueDate: new Date(dueDate),
+      status: "pending",
+    });
+
+    await newTask.save();
+
+    res.status(201).json({
+      message: "Task assigned successfully",
+      taskId: newTask._id,
     });
   } catch (error) {
     next(error);

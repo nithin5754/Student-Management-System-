@@ -1,14 +1,12 @@
-
 import { StatusCodes } from "http-status-codes";
-export interface IErrorResponse  {
+
+export interface IErrorResponse {
   message: string;
   statusCode: number;
   status: string;
   comingFrom: string;
-  errors?: any[];
   serializeErrors(): IError;
 }
-
 
 export interface IError {
   message: string;
@@ -17,8 +15,7 @@ export interface IError {
   comingFrom: string;
 }
 
-
-export abstract class CustomError extends Error {
+export abstract class CustomError extends Error implements IErrorResponse {
   abstract statusCode: number;
   abstract status: string;
   comingFrom: string;
@@ -27,7 +24,6 @@ export abstract class CustomError extends Error {
     this.comingFrom = comingFrom;
   }
 
-
   serializeErrors(): IError {
     return {
       message: this.message,
@@ -35,24 +31,14 @@ export abstract class CustomError extends Error {
       status: this.status,
       comingFrom: this.comingFrom,
     };
-  }    
-}
-
-export class BadRequestError extends CustomError {
-    
-  statusCode = StatusCodes.UNAUTHORIZED;
-  status = 'error';
-
-  constructor(message: string, comingFrom: string) {
-    super(message, comingFrom);
   }
 }
 
-export class NotFoundError extends CustomError {
-  statusCode = StatusCodes.NOT_FOUND;
-  status = 'error';
-  constructor(message:string,comingFrom:string) {
-    super(message,comingFrom)
+export class BadRequestError extends CustomError {
+  statusCode = StatusCodes.BAD_REQUEST;
+  status = "error";
+  constructor(message: string, comingFrom: string) {
+    super(message, comingFrom);
   }
 }
 
@@ -65,3 +51,5 @@ export class NotAuthorizedError extends CustomError {
     super(message, comingFrom);
   }
 }
+
+
