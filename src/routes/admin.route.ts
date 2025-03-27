@@ -7,7 +7,7 @@ import {
 } from "../middlewares/auth.middleware";
 import { AddStudent, AddTask } from "../controllers/admin.controller";
 import { GetAllStudents } from "../controllers/student.controller";
-import isAdminMiddleWare from "../middlewares/isAdmin";
+import isAdminMiddleWare from "../middlewares/isAdmin.middleware";
 
 const router = express.Router();
 

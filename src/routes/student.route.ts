@@ -3,7 +3,7 @@ import { StudentLogin } from "../controllers/authentication.controller";
 import { GetStudentDetails } from "../controllers/student.controller";
 import { authenticateMiddleware } from "../middlewares/auth.middleware";
 import { GetAllTasks, updateTask } from "../controllers/task.controller";
-import isStudentMiddleWare from "../middlewares/isStudent";
+import isStudentMiddleWare from "../middlewares/isStudent.middleware";
 
 const router = express.Router();
 
