@@ -61,6 +61,8 @@ npm start
   - Add a new student
 - `POST /api/v1/admin/task/add`
   - Assign a task to a student
+ - `GET /api/v1/admin/student/all`
+  - Get all the  students lists
 
 ### Student Endpoints
 - `POST /api/v1/student/login`
