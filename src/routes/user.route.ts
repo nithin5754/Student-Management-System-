@@ -1,18 +1,17 @@
+import express from "express";
+import { StudentLogin } from "../controllers/authentication.controller";
+import { GetStudentDetails } from "../controllers/student.controller";
+import { authenticateMiddleware } from "../middlewares/auth.middleware";
+import { GetAllTasks, updateTask } from "../controllers/task.controller";
+import isStudentMiddleWare from "../middlewares/isStudent";
 
-import express from 'express'
-import { StudentLogin } from '../controllers/authentication.controller'
-import { GetStudentDetails } from '../controllers/student.controller'
-import { authenticateMiddleware } from '../middlewares/auth.middleware'
-import { GetAllTasks, updateTask } from '../controllers/task.controller'
+const router = express.Router();
 
-
-const router=express.Router()
-
-router.post('/login',StudentLogin)
-// router.use(studentOnly)
+router.post("/login", StudentLogin);
 router.use(authenticateMiddleware);
-router.get('/details/:studentId',GetStudentDetails)
-router.get('/tasks/:studentId',GetAllTasks)
-router.patch('/task/update/:studentId/:taskId',updateTask)
+router.use(isStudentMiddleWare);
+router.get("/details", GetStudentDetails);
+router.get("/tasks", GetAllTasks);
+router.patch("/task/update/:taskId", updateTask);
 
-export default router
+export default router;

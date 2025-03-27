@@ -25,17 +25,21 @@ export async function authenticateMiddleware(
   next: NextFunction
 ) {
   try {
-
-
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      throw new NotAuthorizedError('Invalid request', 'jWT AUTH() method: Request not coming from api gateway');
+      throw new NotAuthorizedError(
+        "Invalid request",
+        "jWT AUTH() method: Request not coming from api gateway"
+      );
     }
 
     const token = authHeader.split(" ")[1];
     if (!token) {
-      throw new NotAuthorizedError('Token is not available. Please login again.', 'jWT AUTH() method invalid session error');
+      throw new NotAuthorizedError(
+        "Token is not available. Please login again.",
+        "jWT AUTH() method invalid session error"
+      );
     }
 
     const decoded = jwt.verify(
@@ -44,13 +48,19 @@ export async function authenticateMiddleware(
     ) as TokenPayload;
 
     if (!decoded) {
-      throw new NotAuthorizedError('authorized', 'jWT AUTH() method: Request not coming from api gateway');
+      throw new NotAuthorizedError(
+        "authorized",
+        "jWT AUTH() method: Request not coming from api gateway"
+      );
     }
 
     const user = await UserModal.findById(decoded.userId);
 
     if (!user) {
-      throw new NotAuthorizedError('Token is not available. Please login again.', 'jWT AUTH() method invalid session error');
+      throw new NotAuthorizedError(
+        "Token is not available. Please login again.",
+        "jWT AUTH() method invalid session error"
+      );
     }
 
     req.user = {
@@ -60,40 +70,6 @@ export async function authenticateMiddleware(
 
     next();
   } catch (error) {
-
-    res.status(401).json({error:"unauthorized  credentials, please login"})
-
+    res.status(401).json({ error: "unauthorized  credentials, please login" });
   }
 }
-
-
-
-
-export async function studentOnly(
-  req: Request,
-  _res: Response,
-  next: NextFunction
-) {
-  try {
-    if (!req.user || req.user.role !== UserRole.STUDENT) {
-      throw new NotAuthorizedError(
-        "Student access required",
-        "studentOnly() method error"
-      );
-    }
-    next();
-  } catch (error) {
-    next(error);
-  }
-}
-
-
-
-
-
-
-
-
-
-
-

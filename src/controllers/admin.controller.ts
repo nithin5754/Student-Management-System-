@@ -31,7 +31,7 @@ export async function AddStudent(
     await student.save();
 
     res.status(201).json({
-      message: "new student added successfully"
+      message: "new student added successfully",
     });
   } catch (error) {
     next(error);
@@ -40,9 +40,11 @@ export async function AddStudent(
 
 export async function AddTask(req: Request, res: Response, next: NextFunction) {
   try {
-    const { studentId, title, description, dueDate } = req.body;
+    const { title, description, dueDate } = req.body;
 
-    const student = await UserModal.findById(studentId);
+    const user = req.user;
+
+    const student = await UserModal.findById(user?.userId);
     if (!student) {
       throw new BadRequestError(
         "'Something went wrong'",
@@ -51,7 +53,7 @@ export async function AddTask(req: Request, res: Response, next: NextFunction) {
     }
 
     const newTask = new TaskModal({
-      studentId,
+      studentId: user?.userId,
       title,
       description,
       dueDate: new Date(dueDate),

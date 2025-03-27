@@ -38,7 +38,7 @@ export async function AdminLogin(
 
       await admin.save();
     }
-    const token:string = await admin.getJWT(admin._id, UserRole.ADMIN);
+    const token: string = await admin.getJWT(admin._id, UserRole.ADMIN);
     res.status(StatusCodes.OK).json({ message: "login", token });
   } catch (error) {
     next(error);
@@ -70,7 +70,7 @@ export async function StudentLogin(
         "StudentLogin() method error"
       );
     }
-    const token:string =await student.getJWT(student._id, UserRole.STUDENT);
+    const token: string = await student.getJWT(student._id, UserRole.STUDENT);
     res.status(StatusCodes.OK).json({ message: "student login", token });
   } catch (error) {
     next(error);

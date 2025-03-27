@@ -7,14 +7,16 @@ import {
 } from "../middlewares/auth.middleware";
 import { AddStudent, AddTask } from "../controllers/admin.controller";
 import { GetAllStudents } from "../controllers/student.controller";
+import isAdminMiddleWare from "../middlewares/isAdmin";
 
 const router = express.Router();
 
 router.post("/login", AdminLogin);
 router.use(authenticateMiddleware);
-// router.use(adminOnly);
+router.use(isAdminMiddleWare);
 router.post("/student/add", AddStudent);
-router.get("/student/all",GetAllStudents)
 router.post('/task/add',AddTask)
+router.get("/student/all",GetAllStudents)
 
 export default router;
+  

@@ -3,14 +3,17 @@ import { UserModal } from "../models/user.schema";
 import { BadRequestError } from "../types/error.interface";
 import { UserRole } from "../types/user.interface";
 
-
-
-
-export async function GetStudentDetails(req: Request, res: Response, next: NextFunction) {
+export async function GetStudentDetails(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    const { studentId } = req.params;
+    const user = req.user;
 
-    const student = await UserModal.findOne({_id:studentId},['-password']);
+    const student = await UserModal.findOne({ _id: user?.userId }, [
+      "-password",
+    ]);
     if (!student) {
       throw new BadRequestError(
         "'Not found'",
@@ -27,12 +30,15 @@ export async function GetStudentDetails(req: Request, res: Response, next: NextF
   }
 }
 
-
-export async function GetAllStudents(_req: Request, res: Response, next: NextFunction) {
+export async function GetAllStudents(
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
-
-
-    const students = await UserModal.find({role:UserRole.STUDENT},['-password']);
+    const students = await UserModal.find({ role: UserRole.STUDENT }, [
+      "-password",
+    ]);
     if (!students) {
       throw new BadRequestError(
         "'Not found'",
@@ -48,5 +54,3 @@ export async function GetAllStudents(_req: Request, res: Response, next: NextFun
     next(error);
   }
 }
-
-
