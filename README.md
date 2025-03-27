@@ -39,7 +39,7 @@ MONGO_URI=mongodb+srv://nithinjoji0756:NV6A3uckLFfeKiPV@cluster0.jnbwvb9.mongodb
 
 JWT_SECRET=hfghgeruytguewrbtwuyt435789324nhtuwyuirwejrdewioroweqjt
 ADMIN_EMAIL= admin@admin.com
-ADMIN_PASSWORD= admin123
+ADMIN_PASSWORD= admin
 ```
 
 4. Run the application
@@ -80,7 +80,7 @@ npm start
 
 ## Default Credentials
 - Admin Email: admin@admin.com
-- Admin Password: admin123
+- Admin Password: admin
 
 ## Postman Documentation
 
