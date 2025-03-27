@@ -3,7 +3,7 @@ import { UserModal } from "../models/user.schema";
 import { BadRequestError } from "../types/error.interface";
 import { UserRole } from "../types/user.interface";
 import { TaskModal } from "../models/task.schema";
-import { AddStudentValidation } from "../utils/validation";
+import { AddStudentValidation, AddTaskValidation } from "../utils/validation";
 
 export async function AddStudent(
   req: Request,
@@ -11,7 +11,7 @@ export async function AddStudent(
   next: NextFunction
 ) {
   try {
-    AddStudentValidation(req)
+    AddStudentValidation(req);
 
     const { name, email, password, department } = req.body;
 
@@ -22,8 +22,6 @@ export async function AddStudent(
         "AddStudent () method Error"
       );
     }
-
-
 
     const student = new UserModal({
       name,
@@ -45,6 +43,7 @@ export async function AddStudent(
 
 export async function AddTask(req: Request, res: Response, next: NextFunction) {
   try {
+    AddTaskValidation(req);
     const { title, description, dueDate } = req.body;
 
     const user = req.user;
